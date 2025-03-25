@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>data_utils API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>data_utils</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="data_utils.data_loading" href="data_loading.html">data_utils.data_loading</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="data_utils.dataframe_utils" href="dataframe_utils.html">data_utils.dataframe_utils</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="data_utils.fold_utils" href="fold_utils.html">data_utils.fold_utils</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="data_utils.image_processing" href="image_processing.html">data_utils.image_processing</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="data_utils.create_image_dataframe"><code class="name flex">
+<span>def <span class="ident">create_image_dataframe</span></span>(<span>data_dir, output_dir, class_names=None, extensions={'.png', '.jpeg', '.jpg'})</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_image_dataframe(data_dir, output_dir, class_names=None, extensions={&#39;.jpg&#39;, &#39;.jpeg&#39;, &#39;.png&#39;}):
+    &#34;&#34;&#34;
+    Scans a directory with subfolders for each class and returns a DataFrame
+    with image file paths and corresponding class labels.
+
+    Args:
+        data_dir (str or Path): Root directory containing class subfolders.
+        class_names (list[str], optional): If provided, filters only these subfolders.
+        extensions (set): Allowed image file extensions.
+
+    Returns:
+        pd.DataFrame: DataFrame with columns [&#39;filepath&#39;, &#39;label&#39;]
+    &#34;&#34;&#34;
+    data = []
+    data_dir = Path(data_dir).resolve()  # Ensures it&#39;s absolute
+    print(data_dir)
+    if not data_dir.exists():
+        raise FileNotFoundError(f&#34;Directory does not exist: {data_dir}&#34;)
+
+    for class_folder in data_dir.iterdir():
+        if class_folder.is_dir():
+            label = class_folder.name
+            if class_names and label not in class_names:
+                continue
+
+            for file in class_folder.glob(&#34;*&#34;):
+                if file.suffix.lower() in extensions:
+                    data.append((str(file), label))
+
+    df = pd.DataFrame(data, columns=[&#34;filepath&#34;, &#34;label&#34;])
+    df.to_csv(output_dir, index=False)
+    return shuffle(df).reset_index(drop=True) </code></pre>
+</details>
+<div class="desc"><p>Scans a directory with subfolders for each class and returns a DataFrame
+with image file paths and corresponding class labels.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data_dir</code></strong> :&ensp;<code>str</code> or <code>Path</code></dt>
+<dd>Root directory containing class subfolders.</dd>
+<dt><strong><code>class_names</code></strong> :&ensp;<code>list[str]</code>, optional</dt>
+<dd>If provided, filters only these subfolders.</dd>
+<dt><strong><code>extensions</code></strong> :&ensp;<code>set</code></dt>
+<dd>Allowed image file extensions.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>DataFrame with columns ['filepath', 'label']</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.generate_k_folds"><code class="name flex">
+<span>def <span class="ident">generate_k_folds</span></span>(<span>df: pandas.core.frame.DataFrame, num_splits: int, random_state: int = 333)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = CONFIG[&#39;random_seed&#39;]):
+    &#34;&#34;&#34;
+    Splits a DataFrame into k stratified (or regular) folds.
+
+    Args:
+        df (pd.DataFrame): The input dataframe to split.
+        num_splits (int): Number of folds.
+        random_state (int): Seed for reproducible shuffling.
+
+    Returns:
+        List[pd.DataFrame]: A list of DataFrames, each representing one fold.
+    &#34;&#34;&#34;
+    if num_splits &lt; 2:
+        raise ValueError(&#34;num_splits must be at least 2&#34;)
+
+    shuffled_df = shuffle(df, random_state=random_state)
+    indices = np.array_split(shuffled_df.index, num_splits)
+    return [shuffled_df.loc[idx].reset_index(drop=True) for idx in indices]</code></pre>
+</details>
+<div class="desc"><p>Splits a DataFrame into k stratified (or regular) folds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>The input dataframe to split.</dd>
+<dt><strong><code>num_splits</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of folds.</dd>
+<dt><strong><code>random_state</code></strong> :&ensp;<code>int</code></dt>
+<dd>Seed for reproducible shuffling.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[pd.DataFrame]</code></dt>
+<dd>A list of DataFrames, each representing one fold.</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.generate_stratified_k_folds"><code class="name flex">
+<span>def <span class="ident">generate_stratified_k_folds</span></span>(<span>df: pandas.core.frame.DataFrame, num_splits: int, random_state: int = 333)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_stratified_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = CONFIG[&#39;random_seed&#39;]):
+    &#34;&#34;&#34;
+    Splits a DataFrame into stratified k folds based on the label column.
+
+    Args:
+        df (pd.DataFrame): The input dataframe to split (must have a &#39;label&#39; column).
+        num_splits (int): Number of folds.
+        random_state (int): Seed for reproducible splits.
+
+    Returns:
+        List[pd.DataFrame]: A list of DataFrames, each representing one stratified fold.
+    &#34;&#34;&#34;
+    if &#39;label&#39; not in df.columns:
+        raise ValueError(&#34;DataFrame must contain a &#39;label&#39; column for stratified splitting.&#34;)
+
+    if num_splits &lt; 2:
+        raise ValueError(&#34;num_splits must be at least 2&#34;)
+
+    skf = StratifiedKFold(n_splits=num_splits, shuffle=True, random_state=random_state)
+    folds = []
+
+    for _, test_idx in skf.split(df, df[&#39;label&#39;]):
+        fold_df = df.iloc[test_idx].reset_index(drop=True)
+        folds.append(fold_df)
+
+    return folds</code></pre>
+</details>
+<div class="desc"><p>Splits a DataFrame into stratified k folds based on the label column.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>The input dataframe to split (must have a 'label' column).</dd>
+<dt><strong><code>num_splits</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of folds.</dd>
+<dt><strong><code>random_state</code></strong> :&ensp;<code>int</code></dt>
+<dd>Seed for reproducible splits.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[pd.DataFrame]</code></dt>
+<dd>A list of DataFrames, each representing one stratified fold.</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.load_training_data"><code class="name flex">
+<span>def <span class="ident">load_training_data</span></span>(<span>data_path)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_training_data(data_path):
+    &#34;&#34;&#34;
+    Loads a processed .npy data file and returns feature and label arrays.
+
+    Args:
+        fold_path (str): Path to the .npy file (e.g., &#39;init.npy&#39; or &#39;round1.npy&#39;)
+
+    Returns:
+        tuple: (trainx, trainy)
+            - trainx (np.ndarray): Feature array of shape (N, H, W, C)
+            - trainy (np.ndarray): Label array of shape (N, 1)
+    &#34;&#34;&#34;
+    data = np.load(data_path, allow_pickle=True)
+    trainx = np.stack(data[:, 0]).astype(np.float32)
+    trainy = data[:, 1].astype(int).reshape([-1, 1])
+    return trainx, trainy</code></pre>
+</details>
+<div class="desc"><p>Loads a processed .npy data file and returns feature and label arrays.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>fold_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the .npy file (e.g., 'init.npy' or 'round1.npy')</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>(trainx, trainy)
+- trainx (np.ndarray): Feature array of shape (N, H, W, C)
+- trainy (np.ndarray): Label array of shape (N, 1)</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.process_and_save_folds"><code class="name flex">
+<span>def <span class="ident">process_and_save_folds</span></span>(<span>data_dir, max_workers=8)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_and_save_folds(data_dir, max_workers=8):
+    &#34;&#34;&#34;
+    Processes all folds and saves them under a new directory
+    automatically inferred from `data_dir`.
+    &#34;&#34;&#34;
+    # Infer output_dir from parent of data_dir
+    parent_dir = os.path.dirname(data_dir.rstrip(&#39;/&#39;))
+    output_dir = os.path.join(parent_dir, &#39;processed_data&#39;)
+
+    print(f&#34;📁 Saving processed data to: {output_dir}&#34;)
+
+    # Process init.csv
+    init_path = os.path.join(data_dir, &#39;init.csv&#39;)
+    if os.path.exists(init_path):
+        processed = process_data_fast(init_path, max_workers)
+        save_processed_array(processed, os.path.join(output_dir, &#39;init.npy&#39;))
+
+    # Process global folds
+    global_dir = os.path.join(data_dir, &#39;global&#39;)
+    if os.path.exists(global_dir):
+        for fname in sorted(os.listdir(global_dir)):
+            if fname.endswith(&#39;.csv&#39;):
+                round_idx = fname.replace(&#39;.csv&#39;, &#39;&#39;)
+                fpath = os.path.join(global_dir, fname)
+                processed = process_data_fast(fpath, max_workers)
+                save_processed_array(processed, os.path.join(output_dir, &#39;global&#39;, f&#34;{round_idx}.npy&#34;))
+
+    # Process client folds
+    for name in sorted(os.listdir(data_dir)):
+        if name.startswith(&#34;client_&#34;):
+            client_dir = os.path.join(data_dir, name)
+
+            for fname in sorted(os.listdir(client_dir)):
+                if fname.endswith(&#39;.csv&#39;):
+                    round_idx = fname.replace(&#39;.csv&#39;, &#39;&#39;)
+                    fpath = os.path.join(client_dir, fname)
+                    processed = process_data_fast(fpath, max_workers)
+                    save_processed_array(processed, os.path.join(output_dir, name, f&#34;{round_idx}.npy&#34;))
+
+    print(f&#34;✅ All processed data saved under: {output_dir}&#34;) </code></pre>
+</details>
+<div class="desc"><p>Processes all folds and saves them under a new directory
+automatically inferred from <code>data_dir</code>.</p></div>
+</dd>
+<dt id="data_utils.process_data_fast"><code class="name flex">
+<span>def <span class="ident">process_data_fast</span></span>(<span>data_path: str, max_workers: int = 8) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_data_fast(data_path: str, max_workers: int = 8) -&gt; np.ndarray:
+    &#34;&#34;&#34;
+    Parallel processing of multiple images using ThreadPoolExecutor.
+    
+    Args:
+        data_path (str): Path to CSV file containing image filepaths and labels
+        max_workers (int): Maximum number of concurrent threads for processing
+    
+    Returns:
+        np.ndarray: Array of processed images and their labels
+    &#34;&#34;&#34;
+    import pandas as pd
+    df = pd.read_csv(data_path)
+    filepaths = df[&#39;filepath&#39;].tolist()
+    labels = df[&#39;label&#39;].tolist()
+    processed = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(process_image_safe, path, label): path 
+                  for path, label in zip(filepaths, labels)}
+        for future in as_completed(futures):
+            result = future.result()
+            if result is not None:
+                processed.append(result)
+    return np.array(processed, dtype=object)</code></pre>
+</details>
+<div class="desc"><p>Parallel processing of multiple images using ThreadPoolExecutor.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to CSV file containing image filepaths and labels</dd>
+<dt><strong><code>max_workers</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum number of concurrent threads for processing</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>Array of processed images and their labels</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.process_image"><code class="name flex">
+<span>def <span class="ident">process_image</span></span>(<span>image_path: str, label: str) ‑> tuple</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_image(image_path: str, label: str) -&gt; tuple:
+    &#34;&#34;&#34;
+    Process a single image for model training/inference.
+    
+    Args:
+        image_path (str): Path to the image file
+        label (str): Image label (&#39;mask&#39; or &#39;no_mask&#39;)
+    
+    Returns:
+        tuple: Processed image array and class label (1 for mask, 0 for no_mask)
+        None: If processing fails
+    &#34;&#34;&#34;
+    try:
+        input_shape = ast.literal_eval(CONFIG.get(&#39;image_size&#39;, &#39;(100, 100, 3)&#39;))
+        image = load_image(image_path, target_size=(input_shape[0], input_shape[0]))
+        image_class = 1 if label == &#39;mask&#39; else 0
+        return (image, image_class)
+    except Exception as e:
+        print(f&#34;Error processing image at {image_path}: {e}&#34;)
+        return None</code></pre>
+</details>
+<div class="desc"><p>Process a single image for model training/inference.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the image file</dd>
+<dt><strong><code>label</code></strong> :&ensp;<code>str</code></dt>
+<dd>Image label ('mask' or 'no_mask')</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>Processed image array and class label (1 for mask, 0 for no_mask)</dd>
+<dt><code>None</code></dt>
+<dd>If processing fails</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.process_image_safe"><code class="name flex">
+<span>def <span class="ident">process_image_safe</span></span>(<span>image_path: str, label: str) ‑> tuple</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_image_safe(image_path: str, label: str) -&gt; tuple:
+    &#34;&#34;&#34;
+    Wrapper function for process_image with additional error handling.
+    
+    Args:
+        image_path (str): Path to the image file
+        label (str): Image label (&#39;mask&#39; or &#39;no_mask&#39;)
+    
+    Returns:
+        tuple: Processed image array and class label
+        None: If processing fails
+    &#34;&#34;&#34;
+    try:
+        return process_image(image_path, label)
+    except Exception as e:
+        print(f&#34;❌ Error processing {image_path}: {e}&#34;)
+        return None</code></pre>
+</details>
+<div class="desc"><p>Wrapper function for process_image with additional error handling.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the image file</dd>
+<dt><strong><code>label</code></strong> :&ensp;<code>str</code></dt>
+<dd>Image label ('mask' or 'no_mask')</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>Processed image array and class label</dd>
+<dt><code>None</code></dt>
+<dd>If processing fails</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.save_folds_with_global"><code class="name flex">
+<span>def <span class="ident">save_folds_with_global</span></span>(<span>folds, num_clients, save_dir)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_folds_with_global(folds, num_clients, save_dir):
+    &#34;&#34;&#34;
+    Saves a list of folds into a structured directory with:
+    - `data/init.csv` for the first odd fold.
+    - `data/global/` containing an equal number of folds as each client.
+    - `data/client_X/` folders each containing an equal number of folds.
+
+    Args:
+        folds (list[pd.DataFrame]): List of k folds.
+        num_clients (int): Number of clients.
+        save_dir (str): Base directory where `data/` will be created.
+
+    Returns:
+        str: Path to the saved experiment data folder.
+    &#34;&#34;&#34;
+    # Create main data directory
+    data_dir = os.path.join(save_dir, &#34;data&#34;)
+    os.makedirs(data_dir, exist_ok=True)
+
+    # Save the first fold as init.csv
+    init_csv_path = os.path.join(data_dir, &#34;init.csv&#34;)
+    folds[0].to_csv(init_csv_path, index=False)
+    print(f&#34;✅ Saved Init Fold -&gt; {init_csv_path}&#34;)
+
+    # Remaining folds to distribute
+    remaining_folds = folds[1:]
+    num_remaining_folds = len(remaining_folds)
+
+    # Total partitions (clients + global)
+    total_partitions = num_clients + 1  # Clients + Global
+    folds_per_partition = num_remaining_folds // total_partitions  # Equal distribution
+
+    # Save Global Folds
+    global_dir = os.path.join(data_dir, &#34;global&#34;)
+    os.makedirs(global_dir, exist_ok=True)
+    for i in range(folds_per_partition):
+        fold_path = os.path.join(global_dir, f&#34;round{i+1}.csv&#34;)
+        remaining_folds[i].to_csv(fold_path, index=False)
+        print(f&#34;✅ Saved Global Fold {i+1} -&gt; {fold_path}&#34;)
+
+    # Save Client Folds
+    current_idx = folds_per_partition
+    for client_id in range(1, num_clients + 1):
+        client_dir = os.path.join(data_dir, f&#34;client_{client_id}&#34;)
+        os.makedirs(client_dir, exist_ok=True)
+
+        for round_num in range(folds_per_partition):
+            fold_idx = current_idx + round_num
+            fold_path = os.path.join(client_dir, f&#34;round{round_num+1}.csv&#34;)
+            remaining_folds[fold_idx].to_csv(fold_path, index=False)
+            print(f&#34;✅ Saved Client {client_id} Fold {round_num+1} -&gt; {fold_path}&#34;)
+
+        current_idx += folds_per_partition
+
+    return data_dir  # Return the path for reference </code></pre>
+</details>
+<div class="desc"><p>Saves a list of folds into a structured directory with:
+- <code>data/init.csv</code> for the first odd fold.
+- <code>data/global/</code> containing an equal number of folds as each client.
+- <code>data/client_X/</code> folders each containing an equal number of folds.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>folds</code></strong> :&ensp;<code>list[pd.DataFrame]</code></dt>
+<dd>List of k folds.</dd>
+<dt><strong><code>num_clients</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of clients.</dd>
+<dt><strong><code>save_dir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Base directory where <code>data/</code> will be created.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Path to the saved experiment data folder.</dd>
+</dl></div>
+</dd>
+<dt id="data_utils.save_processed_array"><code class="name flex">
+<span>def <span class="ident">save_processed_array</span></span>(<span>array: numpy.ndarray, output_path: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_processed_array(array: np.ndarray, output_path: str) -&gt; None:
+    &#34;&#34;&#34;
+    Save processed image array to disk.
+    
+    Args:
+        array (np.ndarray): Array of processed images and labels
+        output_path (str): Path where the array will be saved
+    &#34;&#34;&#34;
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    np.save(output_path, array)
+    print(f&#34;💾 Saved processed data to {output_path}&#34;)</code></pre>
+</details>
+<div class="desc"><p>Save processed image array to disk.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Array of processed images and labels</dd>
+<dt><strong><code>output_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path where the array will be saved</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="data_utils.data_loading" href="data_loading.html">data_utils.data_loading</a></code></li>
+<li><code><a title="data_utils.dataframe_utils" href="dataframe_utils.html">data_utils.dataframe_utils</a></code></li>
+<li><code><a title="data_utils.fold_utils" href="fold_utils.html">data_utils.fold_utils</a></code></li>
+<li><code><a title="data_utils.image_processing" href="image_processing.html">data_utils.image_processing</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="data_utils.create_image_dataframe" href="#data_utils.create_image_dataframe">create_image_dataframe</a></code></li>
+<li><code><a title="data_utils.generate_k_folds" href="#data_utils.generate_k_folds">generate_k_folds</a></code></li>
+<li><code><a title="data_utils.generate_stratified_k_folds" href="#data_utils.generate_stratified_k_folds">generate_stratified_k_folds</a></code></li>
+<li><code><a title="data_utils.load_training_data" href="#data_utils.load_training_data">load_training_data</a></code></li>
+<li><code><a title="data_utils.process_and_save_folds" href="#data_utils.process_and_save_folds">process_and_save_folds</a></code></li>
+<li><code><a title="data_utils.process_data_fast" href="#data_utils.process_data_fast">process_data_fast</a></code></li>
+<li><code><a title="data_utils.process_image" href="#data_utils.process_image">process_image</a></code></li>
+<li><code><a title="data_utils.process_image_safe" href="#data_utils.process_image_safe">process_image_safe</a></code></li>
+<li><code><a title="data_utils.save_folds_with_global" href="#data_utils.save_folds_with_global">save_folds_with_global</a></code></li>
+<li><code><a title="data_utils.save_processed_array" href="#data_utils.save_processed_array">save_processed_array</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

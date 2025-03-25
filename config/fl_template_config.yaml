@@ -1,0 +1,9 @@
+experiment_name: fl--4u6m-03251224
+image_size: !!python/tuple
+- 100
+- 100
+- 3
+local_epochs: 10
+num_clients: 5
+num_rounds: 10
+random_seed: 333
