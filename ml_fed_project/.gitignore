@@ -1,0 +1,8 @@
+# Experiment folders
+experiments/
+experiments/*
+
+# Additional experiment-related files that might be in different locations
+*.keras
+*.npz
+*.pkl 

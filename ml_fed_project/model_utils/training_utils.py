@@ -1,6 +1,4 @@
-from config_utils.config import CONFIG
-
-def train_model(model, trainx, trainy, epochs=CONFIG.get("local_epochs", 10), 
+def train_model(model, trainx, trainy, epochs=10, 
                 batch_size=16, verbose=1, validation_data=None):
     """
     Trains a compiled Keras model.

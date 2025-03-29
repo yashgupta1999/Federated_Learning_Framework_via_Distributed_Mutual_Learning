@@ -1,6 +1,8 @@
-experiment_name: "fed_ml_experiment_1"
-num_clients: 5
-num_rounds: 10
-local_epochs: 10
-image_size: (100, 100, 3)
-random_seed: 333
+experiment_name: "fed_test_experiment_1"
+data_path: "facemask_dataset"
+num_clients: 20
+num_rounds: 3
+local_epochs: 4
+seed: 333
+include_global: true
+stratified: true

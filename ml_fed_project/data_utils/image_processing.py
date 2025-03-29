@@ -4,9 +4,8 @@ import ast
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tensorflow.keras.utils import load_img
 from tensorflow.keras.preprocessing.image import img_to_array
-from config_utils.config import CONFIG
 
-def process_image(image_path: str, label: str) -> tuple:
+def process_image(image_path: str, label: str, input_shape: tuple = (100, 100, 3)) -> tuple:
     """
     Process a single image for model training/inference.
     
@@ -19,7 +18,6 @@ def process_image(image_path: str, label: str) -> tuple:
         None: If processing fails
     """
     try:
-        input_shape = ast.literal_eval(CONFIG.get('image_size', '(100, 100, 3)'))
         image = load_image(image_path, target_size=(input_shape[0], input_shape[0]))
         image_class = 1 if label == 'mask' else 0
         return (image, image_class)
@@ -106,4 +104,4 @@ def load_image(image_path: str, target_size: tuple = (100, 100)) -> np.ndarray:
         
         return normalized_image
     except Exception as e:
-        raise Exception(f"Failed to load image from {image_path}: {str(e)}") 
+        raise Exception(f"Failed to load image from {image_path}: {str(e)}")

@@ -1,5 +1,5 @@
 from .dataframe_utils import create_image_dataframe
-from .fold_utils import generate_k_folds, generate_stratified_k_folds, save_folds_with_global
+from .fold_utils import generate_k_folds, generate_stratified_k_folds, save_folds, split_data
 from .image_processing import process_image, process_image_safe, process_data_fast, save_processed_array
 from .data_loading import load_training_data, process_and_save_folds
 
@@ -7,7 +7,8 @@ __all__ = [
     'create_image_dataframe',
     'generate_k_folds',
     'generate_stratified_k_folds',
-    'save_folds_with_global',
+    'save_folds',
+    'split_data',
     'process_image',
     'process_image_safe',
     'process_data_fast',

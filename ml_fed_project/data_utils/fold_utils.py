@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 from sklearn.utils import shuffle
 from sklearn.model_selection import StratifiedKFold
-from config_utils.config import CONFIG
+from data_utils import create_image_dataframe
 
-def generate_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = CONFIG['random_seed']):
+def generate_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = 333):
     """
     Splits a DataFrame into k stratified (or regular) folds.
 
@@ -24,7 +24,8 @@ def generate_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = CONF
     indices = np.array_split(shuffled_df.index, num_splits)
     return [shuffled_df.loc[idx].reset_index(drop=True) for idx in indices]
 
-def generate_stratified_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = CONFIG['random_seed']):
+
+def generate_stratified_k_folds(df: pd.DataFrame, num_splits: int, random_state: int = 333):
     """
     Splits a DataFrame into stratified k folds based on the label column.
 
@@ -51,48 +52,54 @@ def generate_stratified_k_folds(df: pd.DataFrame, num_splits: int, random_state:
 
     return folds
 
-def save_folds_with_global(folds, num_clients, save_dir):
+def save_folds(folds, num_clients, save_dir, include_global=True, stratified=False):
     """
-    Saves a list of folds into a structured directory with:
-    - `data/init.csv` for the first odd fold.
-    - `data/global/` containing an equal number of folds as each client.
-    - `data/client_X/` folders each containing an equal number of folds.
-
+    Saves a list of folds into a structured directory with configurable options.
+    
     Args:
         folds (list[pd.DataFrame]): List of k folds.
         num_clients (int): Number of clients.
         save_dir (str): Base directory where `data/` will be created.
-
+        include_global (bool): Whether to include a global dataset folder.
+        stratified (bool): Whether the folds are stratified (for logging purposes).
+    
     Returns:
         str: Path to the saved experiment data folder.
     """
     # Create main data directory
-    data_dir = os.path.join(save_dir, "data")
+    data_dir = save_dir
     os.makedirs(data_dir, exist_ok=True)
 
     # Save the first fold as init.csv
     init_csv_path = os.path.join(data_dir, "init.csv")
     folds[0].to_csv(init_csv_path, index=False)
-    print(f"✅ Saved Init Fold -> {init_csv_path}")
+    fold_type = "Stratified" if stratified else "Regular"
+    print(f"✅ Saved {fold_type} Init Fold -> {init_csv_path}")
 
     # Remaining folds to distribute
     remaining_folds = folds[1:]
     num_remaining_folds = len(remaining_folds)
 
-    # Total partitions (clients + global)
-    total_partitions = num_clients + 1  # Clients + Global
-    folds_per_partition = num_remaining_folds // total_partitions  # Equal distribution
+    # Calculate partitions based on whether global dataset is included
+    total_partitions = num_clients + (1 if include_global else 0)
+    if total_partitions == 0:
+        return data_dir
+        
+    folds_per_partition = num_remaining_folds // total_partitions
 
-    # Save Global Folds
-    global_dir = os.path.join(data_dir, "global")
-    os.makedirs(global_dir, exist_ok=True)
-    for i in range(folds_per_partition):
-        fold_path = os.path.join(global_dir, f"round{i+1}.csv")
-        remaining_folds[i].to_csv(fold_path, index=False)
-        print(f"✅ Saved Global Fold {i+1} -> {fold_path}")
+    current_idx = 0
+
+    # Save Global Folds if requested
+    if include_global:
+        global_dir = os.path.join(data_dir, "global")
+        os.makedirs(global_dir, exist_ok=True)
+        for i in range(folds_per_partition):
+            fold_path = os.path.join(global_dir, f"round{i+1}.csv")
+            remaining_folds[current_idx + i].to_csv(fold_path, index=False)
+            print(f"✅ Saved {fold_type} Global Fold {i+1} -> {fold_path}")
+        current_idx += folds_per_partition
 
     # Save Client Folds
-    current_idx = folds_per_partition
     for client_id in range(1, num_clients + 1):
         client_dir = os.path.join(data_dir, f"client_{client_id}")
         os.makedirs(client_dir, exist_ok=True)
@@ -101,8 +108,42 @@ def save_folds_with_global(folds, num_clients, save_dir):
             fold_idx = current_idx + round_num
             fold_path = os.path.join(client_dir, f"round{round_num+1}.csv")
             remaining_folds[fold_idx].to_csv(fold_path, index=False)
-            print(f"✅ Saved Client {client_id} Fold {round_num+1} -> {fold_path}")
+            print(f"✅ Saved {fold_type} Client {client_id} Fold {round_num+1} -> {fold_path}")
 
         current_idx += folds_per_partition
 
-    return data_dir  # Return the path for reference 
+    return data_dir 
+
+def split_data(data_path, num_clients, num_rounds, save_dir, include_global=True, stratified=False):
+    """
+    Splits the data into folds and saves them to the specified directory.
+
+    Args:
+        data_path (str): Path to the input data CSV file.
+        num_clients (int): Number of clients to split the data into.
+        save_dir (str): Directory to save the folds.
+        include_global (bool): Whether to include a global dataset folder.
+        stratified (bool): Whether the folds are stratified (for logging purposes).
+
+    Returns:
+        str: Path to the saved experiment data folder.
+    """
+    # Load the data
+
+    df = create_image_dataframe(os.path.join(data_path, 'train'), os.path.join(save_dir, 'train'), class_names=None, extensions={'.jpg', '.jpeg', '.png'})
+    test_df = create_image_dataframe(os.path.join(data_path, 'test'), os.path.join(save_dir, 'test'), class_names=None, extensions={'.jpg', '.jpeg', '.png'})
+    # Generate folds
+    if include_global:
+        fold_size = num_rounds * (num_clients+1) + 1
+    else:
+        fold_size = num_rounds * num_clients + 1
+
+    if stratified:
+        folds = generate_stratified_k_folds(df, fold_size)
+    else:
+        folds = generate_k_folds(df, fold_size)
+
+    print("length of folds: ", len(folds))
+
+    # Save the folds
+    return save_folds(folds, num_clients, save_dir, include_global, stratified)

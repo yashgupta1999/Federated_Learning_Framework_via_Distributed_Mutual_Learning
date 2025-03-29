@@ -1,34 +1,23 @@
 import numpy as np
 from typing import List, Dict
+from model_utils import load_all_weights
 
-def average_weights(weights_list: List[Dict]) -> Dict:
+def fed_avg_from_disk(folder_dir: str, client_scores: Dict[str, float]):
     """
-    Average a list of model weights (parameters).
-    
-    Args:
-        weights_list (List[Dict]): List of model state dictionaries, where each dictionary
-                                  contains parameter name as key and parameter tensor as value
-    
-    Returns:
-        Dict: Averaged model weights
+    Load all weights from folder_dir, perform FedAvg, and update the model.
+    - folder_dir: Directory containing client weights
+    - client_scores: Dict mapping client_id to weight (e.g., sample count)
     """
-    # Ensure we have weights to average
-    if not weights_list:
-        raise ValueError("Empty weights list provided")
-    
-    # Initialize the averaged weights with the first set of weights
-    averaged_weights = {}
-    for key in weights_list[0].keys():
-        averaged_weights[key] = np.zeros_like(weights_list[0][key])
-        
-    # Sum up all weights
-    for weights in weights_list:
-        for key in weights.keys():
-            averaged_weights[key] += weights[key]
-    
-    # Divide by number of models to get average
-    n_models = len(weights_list)
-    for key in averaged_weights.keys():
-        averaged_weights[key] = averaged_weights[key] / n_models
-        
-    return averaged_weights
+    client_weights = load_all_weights(folder_dir)
+    total_score = sum(client_scores.values())
+    weighted_avg = None
+
+    for client_id, weights in client_weights.items():
+        score = client_scores.get(client_id, 0) / total_score
+        if weighted_avg is None:
+            weighted_avg = [score * layer for layer in weights]
+        else:
+            for i in range(len(weights)):
+                weighted_avg[i] += score * weights[i]
+
+    return weighted_avg

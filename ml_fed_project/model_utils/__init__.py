@@ -6,5 +6,8 @@ __all__ = [
     'save_model',
     'clear_model_from_memory',
     'load_model_from_disk',
-    'optimize_weights'
+    'optimize_weights',
+    'save_model_weights',
+    'load_all_weights',
+    'load_model_weights'
 ] 

@@ -4,20 +4,17 @@ from tensorflow.keras.models import Sequential
 import ast
 import random
 import numpy as np
-from config_utils.config import CONFIG
 
-def create_model(seed=None):
+def create_model(seed=333,input_shape=(100,100,3)):
     """
     Creates and compiles a CNN model based on the provided configuration.
     """
     # Set random seed for reproducibility
-    if seed is None:
-        seed = CONFIG.get('random_seed', 333)
     random.seed(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
    
-    input_shape = ast.literal_eval(CONFIG.get('image_size', '(100, 100, 3)'))
+    # input_shape = ast.literal_eval(CONFIG.get('image_size', '(100, 100, 3)'))
     
     model = Sequential([
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
