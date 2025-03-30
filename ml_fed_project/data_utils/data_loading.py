@@ -19,14 +19,12 @@ def load_training_data(data_path):
     trainy = data[:, 1].astype(int).reshape([-1, 1])
     return trainx, trainy
 
-def process_and_save_folds(data_dir, max_workers=8):
+def process_and_save_folds(data_dir,output_dir, max_workers=8):
     """
     Processes all folds and saves them under a new directory
     automatically inferred from `data_dir`.
     """
     # Infer output_dir from parent of data_dir
-    parent_dir = os.path.dirname(data_dir.rstrip('/'))
-    output_dir = os.path.join(parent_dir, 'processed_data')
 
     print(f"📁 Saving processed data to: {output_dir}")
 

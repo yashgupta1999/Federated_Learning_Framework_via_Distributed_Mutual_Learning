@@ -1,8 +1,9 @@
 experiment_name: "fed_test_experiment_1"
-data_path: "facemask_dataset"
-num_clients: 20
-num_rounds: 3
+data_path: "./data/facemask_dataset"
+num_clients: 3
+num_rounds: 1
 local_epochs: 4
 seed: 333
 include_global: true
 stratified: true
+base_dir: ""

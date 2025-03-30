@@ -8,6 +8,9 @@ import numpy as np
 from typing import Dict
 from experiment_utils import create_directory_if_not_exists
 
+from config_utils.config import load_config
+from config_utils.paths import ExperimentPaths
+
 def save_model(model, path):
     """Saves the given model to the specified path."""
     create_directory_if_not_exists(os.path.dirname(path))

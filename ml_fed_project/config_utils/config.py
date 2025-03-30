@@ -3,45 +3,73 @@ import os
 import yaml
 import string
 import random
+from .paths import ExperimentPaths
 
-def load_config(config_path, base_config=None):
+def load_config(config_path: str,) -> tuple[dict, ExperimentPaths]:
     """
-    Load a YAML config file. If it doesn't exist, create it with base_config.
-
-    Parameters:
-    - config_path (str): Path to the config YAML file
-    - base_config (dict, optional): A dictionary representing the base config
-
+    Load configuration and initialize paths.
+    
+    Args:
+        config_path: Path to config YAML file
+        experiment_name: Optional name for this experiment. If not provided, will use name from config file
+                       or generate a new one if config doesn't exist.
+    
     Returns:
-    - config (dict): Loaded or newly created configuration
+        tuple of (config dict, ExperimentPaths object)
     """
     
-    if not os.path.exists(config_path):
-        print(f"[INFO] Config file not found at {config_path}. Generating default config.")
+    # if not os.path.exists(config_path):
+    #     print(f"[INFO] Config file not found at {config_path}. Generating default config.")
         
-        # Use default base config if none provided
-        if base_config is None:
-            uid = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
-            timestamp = datetime.now().strftime("%m%d%H%M")  # Optional short timestamp (MMDDHHMM)
-            experiment_name = f"fl--{uid}-{timestamp}"
-            base_config = {
-                "experiment_name": experiment_name,
-                "num_clients": 5,
-                "num_rounds": 10,
-                "local_epochs": 10,
-                "image_size": (100, 100, 3),
-                "random_seed": 333
-            }
+    #     # Use default base config if none provided
+    #     uid = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
+    #     timestamp = datetime.now().strftime("%m%d%H%M")  # Optional short timestamp (MMDDHHMM)
+    #     experiment_name = experiment_name or f"fl--{uid}-{timestamp}"
+    #     base_config = {
+    #         "experiment_name": experiment_name,
+    #         "num_clients": 5,
+    #         "num_rounds": 10,
+    #         "local_epochs": 10,
+    #         "image_size": (100, 100, 3),
+    #         "random_seed": 333
+    #     }
                         
-        # Create directory if needed
-        os.makedirs(os.path.dirname(config_path), exist_ok=True)
+    #     # Create directory if needed
+    #     os.makedirs(os.path.dirname(config_path), exist_ok=True)
         
-        with open(config_path, 'w') as file:
-            yaml.dump(base_config, file)
+    #     with open(config_path, 'w') as file:
+    #         yaml.dump(base_config, file)
         
-        return base_config
+    #     # Initialize paths
+    #     paths = ExperimentPaths(
+    #         base_dir=base_config.get('base_dir'),
+    #         experiment_name=experiment_name
+    #     )
+        
+    #     # Save config to experiment directory
+    #     paths.save_config(base_config)
+        
+    #     return base_config, paths
 
     # Load and return the config if it exists
     with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
-    return config
+    
+    # Use provided experiment_name if given, otherwise use from config
+    final_experiment_name = config.get('experiment_name')
+    if not final_experiment_name:
+        raise ValueError("Experiment name must be provided either in config file")
+    
+    # Initialize paths
+    paths = ExperimentPaths(
+        base_dir=config.get('base_dir',),
+        experiment_name=final_experiment_name
+    )
+    
+    # Update config with final experiment name
+    config['experiment_name'] = final_experiment_name
+    
+    # Save config to experiment directory
+    paths.save_config(config)
+    
+    return config, paths

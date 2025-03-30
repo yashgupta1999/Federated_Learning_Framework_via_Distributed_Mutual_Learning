@@ -2,9 +2,10 @@ import os
 import yaml
 import tensorflow as tf
 
-def setup_experiment_directory(config):
+def setup_experiment_directory(config: dict) -> str:
     """Create experiment directory and return its path."""
     experiment_dir = os.path.join(os.getcwd(), 'experiments', config['experiment_name'])
+    create_directory_if_not_exists(experiment_dir)
     os.makedirs(experiment_dir, exist_ok=True)
     return experiment_dir
 

@@ -131,7 +131,6 @@ def split_data(data_path, num_clients, num_rounds, save_dir, include_global=True
     # Load the data
 
     df = create_image_dataframe(os.path.join(data_path, 'train'), os.path.join(save_dir, 'train'), class_names=None, extensions={'.jpg', '.jpeg', '.png'})
-    test_df = create_image_dataframe(os.path.join(data_path, 'test'), os.path.join(save_dir, 'test'), class_names=None, extensions={'.jpg', '.jpeg', '.png'})
     # Generate folds
     if include_global:
         fold_size = num_rounds * (num_clients+1) + 1
