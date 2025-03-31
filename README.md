@@ -1,128 +1,220 @@
-# Federated Learning for Face Mask Detection
+# Federated Learning Framework
 
-This project implements federated learning approaches for face mask detection using TensorFlow and Keras.
+A flexible and extensible framework for implementing and experimenting with federated learning algorithms, with a focus on computer vision tasks. This framework enables distributed training of machine learning models across multiple clients while maintaining data privacy and locality.
 
 ## Project Overview
 
-The project demonstrates two different federated learning approaches:
+This project implements a federated learning framework that allows for distributed training of machine learning models across multiple clients while keeping data local. The framework is particularly well-suited for computer vision tasks and includes support for various federated learning algorithms, with Federated Averaging (FedAvg) as the primary implementation.
 
-1. **Federated Averaging (FedAvg)** - A synchronous federated learning approach where client models are averaged after each round.
-2. **Federated Distillation (FedKD)** - A knowledge distillation-based approach where client models learn from each other's predictions.
+### Key Benefits
 
-Both approaches are compared with a traditional centralized learning approach.
+- **Privacy-Preserving**: Data remains on local devices, never leaving the client
+- **Distributed Training**: Efficient training across multiple clients
+- **Flexible Architecture**: Easy to extend with new federated learning algorithms
+- **Comprehensive Monitoring**: Detailed tracking of training progress and metrics
+- **Resource Efficient**: Built-in GPU memory management and optimization
 
-## Dataset
-
-The code expects a dataset organized as follows:
+## Project Structure
 
 ```
-├── Test/
-│   ├── Mask/          # Training images with masks
-│   └── NoMask/        # Training images without masks
-└── Global/
-    ├── Mask/          # Testing images with masks
-    └── NoMask/        # Testing images without masks
+ml_fed_project/
+├── config/                 # Configuration files and templates
+│   └── fl_template_config.yaml  # Template for experiment configuration
+├── config_utils/          # Configuration management utilities
+│   └── paths.py          # Path management for experiments
+├── data/                  # Dataset storage and management
+├── data_utils/           # Data processing and management utilities
+│   ├── data_processing.py    # Data preprocessing functions
+│   └── data_splitting.py     # Data distribution utilities
+├── docs/                 # Project documentation
+├── experiment_utils/     # Experiment management utilities
+│   ├── directory.py      # Directory management
+│   └── gpu.py           # GPU configuration
+├── fed_utils/           # Federated learning specific utilities
+│   └── fed_avg.py       # FedAvg implementation
+├── federated_frameworks/ # Core federated learning implementations
+├── model_utils/         # Model creation and management utilities
+├── notebooks/           # Jupyter notebooks for analysis
+└── main.py             # Main entry point for running experiments
 ```
 
-## Requirements
+## Features
+
+### Core Functionality
+
+- **Federated Averaging (FedAvg) Implementation**
+  - Distributed model training across multiple clients
+  - Weight aggregation and synchronization
+  - Support for heterogeneous client participation
+
+- **Data Management**
+  - Stratified data splitting for balanced distribution
+  - Support for various data formats
+  - Efficient data preprocessing pipeline
+  - Local data storage and management
+
+- **Model Management**
+  - Flexible model architecture support
+  - Weight saving and loading
+  - Model checkpointing
+  - Memory-efficient training
+
+- **Experiment Management**
+  - YAML-based configuration system
+  - Comprehensive logging system
+  - Metrics tracking and visualization
+  - Experiment reproducibility
+
+### Technical Features
+
+- **GPU Support**
+  - Automatic GPU detection and configuration
+  - Memory growth management
+  - Multi-GPU support
+
+- **Performance Optimization**
+  - Efficient weight aggregation
+  - Memory management
+  - Batch processing support
+
+## Getting Started
+
+### Prerequisites
 
 - Python 3.7+
 - TensorFlow 2.x
 - NumPy
-- Pandas
-- Matplotlib
-- scikit-learn
-- PIL (Pillow)
+- PyYAML
+- Other dependencies (see requirements.txt)
 
-Install all dependencies:
+### Installation
 
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd ml_fed_project
+```
+
+2. Create and activate a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+### Running Experiments
 
-The main script `fed_learning.py` supports three different training modes:
+1. Configure your experiment:
+   - Copy `config/fl_template_config.yaml` to create your experiment config
+   - Modify parameters as needed:
+     ```yaml
+     experiment_name: "your_experiment"
+     data_path: "./data/your_dataset"
+     num_clients: 5
+     num_rounds: 10
+     local_epochs: 5
+     ```
 
-1. **Federated Averaging (FedAvg)**:
+2. Run the main script:
 ```bash
-python fed_learning.py --mode fedavg
+python main.py
 ```
 
-2. **Federated Distillation (FedKD)**:
-```bash
-python fed_learning.py --mode fedkd
-```
+3. Monitor progress:
+   - Check the experiment directory for logs
+   - View metrics in the generated CSV files
+   - Analyze results using provided notebooks
 
-3. **Centralized Training**:
-```bash
-python fed_learning.py --mode central
-```
+## Configuration
 
-### Additional Options
+### Key Configuration Parameters
 
-- `--train-mask-dir` - Directory with mask images for training (default: `Test/Mask`)
-- `--train-no-mask-dir` - Directory with no-mask images for training (default: `Test/NoMask`) 
-- `--test-mask-dir` - Directory with mask images for testing (default: `Global/Mask`)
-- `--test-no-mask-dir` - Directory with no-mask images for testing (default: `Global/NoMask`)
-- `--num-clients` - Number of clients for federated learning (default: 5)
-- `--num-rounds` - Number of communication rounds (default: 10)
-- `--epochs` - Number of epochs per round (default: 10)
-- `--img-size` - Image size for model input (default: 100)
-- `--output-dir` - Directory to save results (default: Results)
+- **Experiment Settings**
+  - `experiment_name`: Unique identifier for the experiment
+  - `base_dir`: Base directory for experiment outputs
+  - `seed`: Random seed for reproducibility
 
-## Architecture
+- **Data Settings**
+  - `data_path`: Path to the dataset
+  - `num_clients`: Number of federated learning clients
+  - `stratified`: Enable stratified sampling
+  - `include_global`: Include global model training
 
-The codebase follows an object-oriented approach with these main components:
+- **Training Settings**
+  - `num_rounds`: Number of federated learning rounds
+  - `local_epochs`: Local training epochs per round
+  - `batch_size`: Batch size for training
+  - `learning_rate`: Learning rate for optimization
 
-- `DataManager` - Handles data loading, preprocessing, and splitting
-- `ModelBuilder` - Creates and initializes CNN models
-- `FederatedLearning` - Base class for federated learning implementations
-- `FederatedAverage` - Implements the FedAvg algorithm
-- `FederatedDistillation` - Implements the knowledge distillation-based approach
-- `CentralizedTraining` - Implements traditional centralized training
+- **Logging Settings**
+  - `directory_structure`: Customize output directory structure
+  - `file_formats`: Configure file formats for weights and history
 
-## Results
+## Experiment Structure
 
-Training results are saved in the `Results` directory and include:
-- Test accuracy for each client
-- Training loss history
-- Training accuracy history
+### 1. Data Preparation
+- Dataset loading and validation
+- Data splitting across clients
+- Preprocessing and augmentation
+- Local data storage setup
 
-Visualizations of the training history are saved in the `Figs` directory.
+### 2. Model Initialization
+- Model architecture creation
+- Weight initialization
+- Client model setup
+- Global model initialization
 
-TensorBoard logs are saved in the `logs/fit` directory and can be viewed with:
+### 3. Federated Learning Process
+- **Round Execution**
+  - Local training on each client
+  - Model weight collection
+  - Weight aggregation
+  - Global model update
+  - Performance evaluation
 
-```bash
-tensorboard --logdir logs/fit
-```
+- **Monitoring**
+  - Training metrics tracking
+  - Validation performance
+  - Resource utilization
+  - Progress logging
 
-## Citation
+### 4. Results and Analysis
+- Model checkpointing
+- Performance metrics export
+- Training history saving
+- Results visualization
 
-If you use this code for your research, please cite:
+## Contributing
 
-```
-@misc{federated-mask-detection,
-  author = {Your Name},
-  title = {Federated Learning for Face Mask Detection},
-  year = {2023},
-  publisher = {GitHub},
-  url = {https://github.com/yourusername/federated-mask-detection}
-}
-```
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+### Development Guidelines
+
+- Follow PEP 8 style guide
+- Add docstrings to new functions
+- Include unit tests for new features
+- Update documentation as needed
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[Add your license information here]
 
-# Run both approaches and compare results
-python run_experiments.py --run-all
+## Support
 
-# Run just one approach
-python run_experiments.py --run-fedavg
+For issues and feature requests, please use the GitHub issue tracker.
 
-# Compare existing results
-python run_experiments.py --compare
+## Acknowledgments
 
-# Customize parameters
-python run_experiments.py --run-all --num-clients 5 --num-rounds 10 --epochs 15 
+- TensorFlow Federated for inspiration
+- Contributors and maintainers
+- Open source community 

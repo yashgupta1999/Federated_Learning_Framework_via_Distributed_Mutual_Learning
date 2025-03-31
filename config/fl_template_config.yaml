@@ -1,9 +1,20 @@
-experiment_name: fl--4u6m-03251224
-image_size: !!python/tuple
-- 100
-- 100
-- 3
-local_epochs: 10
-num_clients: 5
-num_rounds: 10
-random_seed: 333
+experiment_name: "fed_test_experiment_1"
+data_path: "./data/facemask_dataset"
+num_clients: 2
+num_rounds: 1
+local_epochs: 1
+seed: 333
+include_global: true
+stratified: true
+base_dir: ""
+
+logging:
+  directory_structure:
+    round_dir_prefix: "round_"
+    central_weights_name: "central_weights"
+    client_weights_prefix: "client_"
+    history_prefix: "history_"
+    metrics_filename: "metrics.csv"
+  file_formats:
+    weights: "npz"
+    history: "json"
