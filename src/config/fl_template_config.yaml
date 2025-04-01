@@ -1,0 +1,27 @@
+experiment_name: "fed_prox_test"
+data_path: "./data/facemask_dataset"
+num_clients: 2
+num_rounds: 1
+model_metrics:
+  - accuracy
+  - precision
+  - recall
+  - f1_score
+model_loss: "binary_crossentropy"
+model_optimizer: "adam"
+local_epochs: 1
+seed: 333
+include_global: true
+stratified: true
+base_dir: ""
+
+logging:
+  directory_structure:
+    round_dir_prefix: "round_"
+    central_weights_name: "central_weights"
+    client_weights_prefix: "client_"
+    history_prefix: "history_"
+    metrics_filename: "metrics.csv"
+  file_formats:
+    weights: "npz"
+    history: "json"
